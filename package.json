@@ -1,0 +1,44 @@
+{
+    "name": "koho-metal-waitlist",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "NODE_ENV=development nodemon index.js --exec babel-node",
+        "format": "prettier --write \"**/*.{js,jsx,json,md}\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/JagandeepBrar/KOHO-Metal-Waitlist.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/JagandeepBrar/KOHO-Metal-Waitlist/issues"
+    },
+    "homepage": "https://github.com/JagandeepBrar/KOHO-Metal-Waitlist#readme",
+    "devDependencies": {
+        "@babel/cli": "^7.6.0",
+        "@babel/core": "^7.6.0",
+        "@babel/node": "^7.6.1",
+        "@babel/plugin-transform-runtime": "^7.6.0",
+        "@babel/preset-env": "^7.6.0",
+        "husky": "^3.0.5",
+        "nodemon": "^1.19.2",
+        "prettier": "^1.18.2",
+        "pretty-quick": "^1.11.1"
+    },
+    "dependencies": {
+        "@babel/runtime": "^7.6.0",
+        "@babel/runtime-corejs3": "^7.6.0",
+        "axios": "^0.19.0",
+        "core-js": "^3.2.1",
+        "disposable-mail": "^0.2.1",
+        "dotenv": "^8.2.0"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "pretty-quick --staged"
+        }
+    }
+}
