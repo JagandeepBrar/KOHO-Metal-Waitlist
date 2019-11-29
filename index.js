@@ -1,14 +1,10 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import { debugLog, generalLog } from './src/logger';
-import { SUBMIT_RATE, REFERRAL_CODE } from './src/values';
-import { loop } from './src/looper';
+import { SUBMIT_RATE, REFERRAL_CODE, VARIATION } from './src/values';
+import { createAndSubmit } from './src/looper';
 
-const process = () => {
-    debugLog(`Referral Code: ${REFERRAL_CODE}`);
-    debugLog(`Submit Rate: ${SUBMIT_RATE} seconds`);
-    generalLog(`Starting...`);
-    loop();
-};
-
-process();
+debugLog(`Referral Code: ${REFERRAL_CODE}`);
+debugLog(`Submit Rate: ${SUBMIT_RATE}s (${VARIATION}s variation)`);
+generalLog(`Starting...`);
+createAndSubmit();

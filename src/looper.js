@@ -1,28 +1,40 @@
-import { SUBMIT_RATE } from './values';
-import { errorLog } from './logger';
+import { SUBMIT_RATE, VARIATION } from './values';
+import { errorLog, generalLog } from './logger';
 import { createEmail } from './email';
 import { submitReferral } from './submit';
 
 /*
- * loop(): Creates an interval to continously create an email and submit for referral
+ * getVariation(): Returns a number between -VARIATION to VARIATION
  */
-const loop = () => {
-    createAndSubmit();
-    setInterval(async () => {
-        createAndSubmit();
-    }, SUBMIT_RATE * 1000);
+const getVariation = () => {
+    let random = Math.random();
+    let direction = Math.random() < 0.5 ? -1 : 1;
+    return Math.ceil(random * direction * VARIATION);
 };
 
 /*
  * createAndSubmit(): Creates an email and submits for referral
  */
 const createAndSubmit = async () => {
-    var email = await createEmail();
-    if (email !== undefined && email !== '') {
-        submitReferral(email);
+    let variation = parseInt(SUBMIT_RATE) + getVariation();
+    let email = await createEmail();
+    if (email[0] !== undefined) {
+        let submit = await submitReferral(email[0]);
+        if (submit[0]) {
+            generalLog(
+                `Referred ${email[0]} | Waiting ${variation} seconds...`,
+            );
+        } else {
+            errorLog(
+                `Referral failed (${submit[1]}) | Waiting ${variation} seconds`,
+            );
+        }
     } else {
-        errorLog('Invalid email created');
+        errorLog(
+            `Referral failed (${email[1]}) | Waiting ${variation} seconds`,
+        );
     }
+    setTimeout(createAndSubmit, variation * 1000);
 };
 
-export { loop };
+export { createAndSubmit };

@@ -9,10 +9,10 @@ const createEmail = async () => {
     return mailbox
         .getEmailAddress()
         .then((email) => {
-            return email;
+            return [email, undefined];
         })
         .catch((error) => {
-            errorLog(error.message);
+            errorLog([undefined, error.message]);
         });
 };
 

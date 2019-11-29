@@ -1,12 +1,11 @@
 import axios from 'axios';
 import { REFERRAL_CODE } from './values';
-import { generalLog, errorLog } from './logger';
 
 /*
  * submitReferral(): Submits the passed in email address for referral
  */
 const submitReferral = async (email) => {
-    axios
+    return axios
         .post(
             'https://us-central1-metal-cards-waitlist.cloudfunctions.net/Referral_Waitlist',
             {
@@ -17,12 +16,12 @@ const submitReferral = async (email) => {
         )
         .then((response) => {
             if (response.status == 200) {
-                generalLog(`Referred ${email}`);
+                return [true, undefined];
             }
         })
         .catch((error) => {
-            errorLog(error.message);
+            return [false, error.message];
         });
 };
 
-export { submitReferral, REFERRAL_CODE };
+export { submitReferral };
